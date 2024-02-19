@@ -18,9 +18,9 @@ namespace DataAccess.Concrete
             {
                 _categories = new List<Category>()
             {
-                new Category() { Id=1, Name="Programlama"},
-                new Category() { Id=2, Name="İşletim Sistemleri"}
-            };
+                    new Category() { Id=1, Name="Programlama"},
+                    new Category() { Id=2, Name="İşletim Sistemleri"}
+                };
             }
         }
 
