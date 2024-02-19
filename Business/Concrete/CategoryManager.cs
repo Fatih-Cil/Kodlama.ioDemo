@@ -19,22 +19,41 @@ namespace Business.Concrete
         }
 
 
-        public void Add(Category category)
+        public bool Add(Category category)
         {
+
+            
+            if (category.Name == "") return false;
+
             _categoryDal.Add(category);
+            return true;
+
+
+
+
+
         }
 
-        public void Delete(Category category)
+        public bool Delete(Category category)
         {
-            _categoryDal.Delete(category);
+            var result = GetById(category.Id);
+            if (result != null)
+            {
+                _categoryDal.Delete(category);
+                return true;
+            }
+            return false;
+            
+
+
+
+
         }
 
         public List<Category> GetAll()
         {
-           
-            
-            
-          return _categoryDal.GetAll();
+
+            return _categoryDal.GetAll();
         }
 
         public Category GetById(int id)
@@ -44,10 +63,16 @@ namespace Business.Concrete
 
         }
 
-        public void Update(Category category)
+        public bool Update(Category category)
         {
-            _categoryDal.Update(category);
+            var result = GetById(category.Id);
+            if (result != null) { _categoryDal.Update(category);  return true;}
+           
+
+            return false;
         }
+
+
     }
 
 
