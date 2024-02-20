@@ -28,22 +28,36 @@ namespace Business.Concrete
 
         public bool Delete(Instructor instructor)
         {
-            throw new NotImplementedException();
+            var result = GetById(instructor.Id);
+            if (result != null)
+            {
+                _instractorDal.Delete(instructor);
+                return true;
+            }
+
+            return false;
         }
 
         public List<Instructor> GetAll()
         {
-            throw new NotImplementedException();
+            return _instractorDal.GetAll();
         }
 
         public Instructor GetById(int id)
         {
-            throw new NotImplementedException();
+            return _instractorDal.GetById(id);
         }
 
         public bool Update(Instructor instructor)
         {
-            throw new NotImplementedException();
+            var result = GetById(instructor.Id);
+            if (result != null)
+            {
+                _instractorDal.Update(instructor);
+                return true;
+            }
+
+            return false;
         }
     }
 }

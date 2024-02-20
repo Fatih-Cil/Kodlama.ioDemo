@@ -7,6 +7,8 @@ using Entities.Concrete;
 Console.WriteLine("Kodlama.io Demo\n");
 
 CategoryManager _categoryManager = new CategoryManager(new CategoryDal());
+InstructorManager _instructorManager= new InstructorManager(new InstructorDal());
+CourseManager _courseManager=new CourseManager(new CourseDal());
 
 
 
@@ -59,9 +61,27 @@ CategoryDelete(category3);
 CategoryGetAll();
 Console.WriteLine("\n");
 
+var result = _courseManager.GetAll();
 
+if (result.Count == 0) Console.WriteLine("Hiç kurs Yok");
+else
+{
+    Console.WriteLine("Id   Title    Açıklama");
+    Console.WriteLine("--------------------------");
+    foreach (var item in result) Console.WriteLine(item.Id + "  " + item.Title+"  "+item.Explanation);
 
+}
 
+var result2 = _instructorManager.GetAll();
+
+if (result2.Count == 0) Console.WriteLine("Hiç eğitmen yok");
+else
+{
+    Console.WriteLine("Id   Adı Soyadı    Kariyer");
+    Console.WriteLine("--------------------------");
+    foreach (var item in result2) Console.WriteLine(item.Id + "  " + item.Name + " " + item.Surname+"  "+item.Career);
+
+}
 
 
 
