@@ -6,143 +6,81 @@ using Entities.Concrete;
 
 Console.WriteLine("Kodlama.io Demo\n");
 
-CategoryManager _categoryManager = new CategoryManager(new CategoryDal());
-InstructorManager _instructorManager= new InstructorManager(new InstructorDal());
-CourseManager _courseManager=new CourseManager(new CourseDal());
+
+//***KATEGORİ CRUD İŞLEMLERİ****
+CategoryManager _categoryManager1 = new CategoryManager(new CategoryDal());
+
+Console.WriteLine("\n***Kategori Ekleniyor***");
+var resultCategory=_categoryManager1.Add(new Category { Id = 3, Name = "Grafik" });
+Console.WriteLine("Durum Kodu: "+ resultCategory.statusCode +"\nSistem Mesajı: " + resultCategory.message);
+CategoryList();
+
+Console.WriteLine("\n***Kategori Güncelleniyor***");
+var resultCategory1 = _categoryManager1.Update(new Category { Id = 3, Name = "Grafik (Güncellenen)" });
+Console.WriteLine("Durum Kodu: " + resultCategory1.statusCode + "\nSistem Mesajı: " + resultCategory1.message);
+CategoryList();
+
+Console.WriteLine("\n***Kategori Siliniyor***");
+var resultCategory2 = _categoryManager1.Delete(new Category { Id = 3, Name = "Grafik (Güncellenen)" });
+Console.WriteLine("Durum Kodu: " + resultCategory2.statusCode + "\nSistem Mesajı: " + resultCategory2.message);
 
 
-
-
-//TÜM KATEGORİLER LİSTELE
-Console.WriteLine("Tüm Kategori Listele:");
-CategoryGetAll();
-Console.WriteLine("\n");
-
-//VERİLEN ID YE GÖRE KATEGORİ GETİR
-Console.WriteLine("Id'ye Göre Listele:(2)");
-CategoryGetById(2);
-Console.WriteLine("\n");
-
-
-//YENİ KATEGORİ EKLEME
-Console.WriteLine("Kategori Ekleme:");
-Category category3 = new Category();
-category3.Id = 3; category3.Name = "Veri Tabanı";
-Category category4 = new Category();
-category4.Id = 4; category4.Name = "";
-CategoryAdd(category3);
-CategoryGetAll();
-Console.WriteLine("Kategori adı olmadan ekleme yapılmak isteniyor:");
-CategoryAdd(category4); 
-CategoryGetAll();
-Console.WriteLine("\n");
-
-
-//KATEGORİ GÜNCELLEME
-Console.WriteLine("Kategori Güncelle:");
-category3.Name = "Network-Güvenlik";
-CategoryUpdate(category3);
-CategoryGetAll();
-Console.WriteLine("\n");
-
-
-//KATEGORİ SİLME
-Console.WriteLine("Kategori Silme:");
-Category category5 = new Category();
-category5.Id = 5;
-
-//5 NOLU ID YE AİT KATEGORİ YOK. HATA MESAJI VERMESİNİ BEKLİYORUM. 
-Console.WriteLine("Olmayan bir id (5):");
-CategoryDelete(category5);
-CategoryGetAll();
-//DAHA ÖNCE OLUŞTURULAN KATEGORİ SİLİNİYOR
-Console.WriteLine("\n Var olan bir id (3):");
-CategoryDelete(category3);
-CategoryGetAll();
-Console.WriteLine("\n");
-
-var result = _courseManager.GetAll();
-
-if (result.Count == 0) Console.WriteLine("Hiç kurs Yok");
-else
+CategoryManager _categoryManager2 = new CategoryManager(new CategoryDal());
+var resultCategori2 = _categoryManager2.GetAll();
+Console.WriteLine("ID  Kategori Adı");
+Console.WriteLine("----------------");
+foreach (var category in resultCategori2)
 {
-    Console.WriteLine("Id   Title    Açıklama");
-    Console.WriteLine("--------------------------");
-    foreach (var item in result) Console.WriteLine(item.Id + "  " + item.Title+"  "+item.Explanation);
-
+    Console.WriteLine(category.Id + "   " + category.Name);
 }
-
-var result2 = _instructorManager.GetAll();
-
-if (result2.Count == 0) Console.WriteLine("Hiç eğitmen yok");
-else
-{
-    Console.WriteLine("Id   Adı Soyadı    Kariyer");
-    Console.WriteLine("--------------------------");
-    foreach (var item in result2) Console.WriteLine(item.Id + "  " + item.Name + " " + item.Surname+"  "+item.Career);
-
-}
-
-
-
-void CategoryAdd(Category category)
-{
-    if (_categoryManager.Add(category))
+void CategoryList(){
+    var resultCategori1 = _categoryManager1.GetAll();
+    Console.WriteLine("ID  Kategori Adı");
+    Console.WriteLine("----------------");
+    foreach (var category in resultCategori1)
     {
-Console.WriteLine("Kayıt başarılı.");
-    }
-    else Console.WriteLine("HATA: Kayıt yapılamadı.");
-
-
-
-}
-
-void CategoryDelete(Category category)
-{
-    if (_categoryManager.Delete(category))
-    {
-        Console.WriteLine("Silme işlemi başarılı");
-    }
-    else { Console.WriteLine("HATA:Silme işlemi yapılamadı."); }
-    
-}
-
-void CategoryUpdate(Category category)
-{
-    if (_categoryManager.Update(category))
-    {
-        Console.WriteLine("Güncelleme işlemi başarılı");
-    }
-    else { Console.WriteLine("HATA:Güncelleme işlemi yapılamadı."); }
-
-}
-
-void CategoryGetById(int id)
-{
-    var result = _categoryManager.GetById(id);
-    if (result is null) Console.WriteLine("{0} nolu id'ye ait kayıt bulunamadı",id);
-    else
-    {
-        Console.WriteLine("Id   Category Name");
-        Console.WriteLine("------------------");
-        Console.WriteLine(result.Id +"  "+ result.Name);
-    }
-}
-
-
-void CategoryGetAll()
-{
-    
-
-    var result = _categoryManager.GetAll();
-
-    if (result.Count == 0) Console.WriteLine("Hiç kategori Yok");
-    else
-    {
-        Console.WriteLine("Id   Category Name");
-        Console.WriteLine("------------------");
-        foreach (var item in result) Console.WriteLine(item.Id + "  " + item.Name);
-
+        Console.WriteLine(category.Id + "   " + category.Name);
     }
 
 }
+
+
+//***EĞİTİM CRUD İŞLEMLERİ****
+InstructorManager _instructorManager1 = new InstructorManager(new InstructorDal());
+
+Console.WriteLine("\n***Eğitmen Ekleniyor***");
+var resultInstructor = _instructorManager1.Add(new Instructor { Id = 3, Name = "Elon", Surname="Musk",Career="Kahve dükkanı işletiyor.", ImgUrl="imaj_url_adresi_buraya" });
+Console.WriteLine("Durum Kodu: " + resultInstructor.statusCode + "\nSistem Mesajı: " + resultInstructor.message);
+InstructorList();
+
+Console.WriteLine("\n***Eğitmen Güncelleniyor***");
+var resultInstructor1 = _instructorManager1.Update(new Instructor { Id = 3, Name = "Elon", Surname = "Musk", Career = "Uzaya adam fırlatma uzmanı.", ImgUrl = "imaj_url_adresi_buraya" });
+Console.WriteLine("Durum Kodu: " + resultInstructor1.statusCode + "\nSistem Mesajı: " + resultInstructor1.message);
+InstructorList();
+
+Console.WriteLine("\n***Eğitmen Siliniyor***");
+var resultInstructor2 = _instructorManager1.Delete(new Instructor { Id = 3, Name = "Elon", Surname = "Musk", Career = "Uzaya adam fırlatma uzmanı.", ImgUrl = "imaj_url_adresi_buraya" });
+Console.WriteLine("Durum Kodu: " + resultInstructor2.statusCode + "\nSistem Mesajı: " + resultInstructor2.message);
+InstructorManager _instructorManager2 = new InstructorManager(new InstructorDal());
+var resultInstructor3 = _instructorManager2.GetAll();
+Console.WriteLine("ID  Adı        Soyad        Kariyer            ");
+Console.WriteLine("---------------------------------------------------------");
+foreach (var instructor in resultInstructor3)
+{
+    Console.WriteLine(instructor.Id + "   " + instructor.Name + "     " + instructor.Surname + "              " + instructor.Career);
+}
+void InstructorList()
+{
+    var resultInstructor1 = _instructorManager1.GetAll();
+    Console.WriteLine("ID  Adı        Soyad        Kariyer            ");
+    Console.WriteLine("---------------------------------------------------------");
+    foreach (var instructor in resultInstructor1)
+    {
+        Console.WriteLine(instructor.Id + "   " + instructor.Name+"     "+ instructor.Surname+"              "+ instructor.Career);
+    }
+
+}
+
+
+CourseManager _courseManager = new CourseManager(new CourseDal());
+

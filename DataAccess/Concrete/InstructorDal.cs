@@ -52,6 +52,9 @@ namespace DataAccess.Concrete
             if (updateEntity != null)
             {
                 updateEntity.Name = entity.Name;
+                updateEntity.Surname= entity.Surname;
+                updateEntity.Career= entity.Career;
+                updateEntity.ImgUrl = entity.ImgUrl;
             }
         }
     }

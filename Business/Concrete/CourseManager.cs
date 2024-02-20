@@ -20,24 +20,24 @@ namespace Business.Concrete
             
         }
 
-        public bool Add(Course course)
+        public (int statusCode, string message) Add(Course course)
         {
-            if (course.InstructorId!>0 || course.CategoryId!>0 || course.Title == "" || course.Explanation=="" || course.Fee==null || course.ImgUrl=="") return false;
-
+            if (course.Title == "" || course.Explanation=="" ) return (400,"Kurs adı, açıklama ve boş geçilemez.");
+            if (course.InstructorId! > 0 || course.CategoryId! > 0) return (400, "Kategori ve eğitmen boş geçilemez");
             _courseDal.Add(course);
-            return true;
+            return (201,"Kurs eklendi");
 
         }
 
-        public bool Delete(Course course)
+        public (int statusCode, string message) Delete(Course course)
         {
             var result = GetById(course.Id);
             if (result != null)
             {
                 _courseDal.Delete(course);
-                return true;
+                return (204, "Kurs Silindi");
             }
-            return false;
+            return (404, "Bu id'ye ait bir kurs bulunamadı.");
         }
 
         public List<Course> GetAll()
@@ -50,16 +50,16 @@ namespace Business.Concrete
             return _courseDal.GetById(id);
         }
 
-        public bool Update(Course course)
+        public (int statusCode, string message) Update(Course course)
         {
             var result = GetById(course.Id);
             if (result != null)
             {
                 _courseDal.Update(course);
-                return true;
+                return (200, "Güncelleme yapıldı.");
             }
 
-            return false;
+            return (404, "Bu id'ye ait bir kurs bulunamadı.");
         }
     }
 }

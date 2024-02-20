@@ -18,24 +18,24 @@ namespace Business.Concrete
         {
             _instractorDal = instructorDal;
         }
-        public bool Add(Instructor instructor)
+        public (int statusCode, string message) Add(Instructor instructor)
         {
-            if (instructor.Name == "") return false;
+            if (instructor.Name == "") return  (400, "Eğitmen adı boş olamaz");
 
             _instractorDal.Add(instructor);
-            return true;
+            return (201,"Eğitmen kayıt edildi.");
         }
 
-        public bool Delete(Instructor instructor)
+        public (int statusCode, string message) Delete(Instructor instructor)
         {
             var result = GetById(instructor.Id);
             if (result != null)
             {
                 _instractorDal.Delete(instructor);
-                return true;
+                return (204, "Eğitmen Silindi");
             }
 
-            return false;
+            return  (404, "Bu id'ye ait bir eğitmen bulunamadı."); ;
         }
 
         public List<Instructor> GetAll()
@@ -48,16 +48,16 @@ namespace Business.Concrete
             return _instractorDal.GetById(id);
         }
 
-        public bool Update(Instructor instructor)
+        public (int statusCode, string message) Update(Instructor instructor)
         {
             var result = GetById(instructor.Id);
             if (result != null)
             {
                 _instractorDal.Update(instructor);
-                return true;
+                return (200, "Güncelleme yapıldı.");
             }
 
-            return false;
+            return (404, "Bu id'ye ait bir eğitmen bulunamadı.");
         }
     }
 }

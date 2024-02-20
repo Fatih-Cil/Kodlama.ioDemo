@@ -40,6 +40,13 @@ namespace DataAccess.Concrete
             return _categories.Find(x => x.Id == id);
         }
 
+        public bool FindByName(string name)
+        {
+         var result= _categories.Find(x => x.Name.ToLower() == name.ToLower());
+            if (result != null) return true; 
+            return false;  
+        }
+
         public List<Category> GetAll()
         {
             return _categories;

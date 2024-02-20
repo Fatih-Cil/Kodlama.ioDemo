@@ -11,8 +11,8 @@ namespace Business.Abstract
     {
         List<Course> GetAll();
         Course GetById(int id);
-        bool Add(Course course);
-        bool Update(Course course);
-        bool Delete(Course course);
+        (int statusCode, string message) Add(Course course);
+        (int statusCode, string message) Update(Course course);
+        (int statusCode, string message) Delete(Course course);
     }
 }

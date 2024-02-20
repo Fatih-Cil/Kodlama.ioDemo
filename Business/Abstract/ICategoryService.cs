@@ -11,9 +11,9 @@ namespace Business.Abstract
     {
 
         List<Category> GetAll();
-        Category GetById(int id);   
-        bool Add(Category category);
-        bool Update(Category category);
-        bool Delete(Category category);
+        Category GetById(int id);
+        (int statusCode, string message) Add(Category category);
+        (int statusCode, string message) Update(Category category);
+        (int statusCode, string message) Delete(Category category);
     }
 }

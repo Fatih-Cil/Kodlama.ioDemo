@@ -19,26 +19,28 @@ namespace Business.Concrete
         }
 
 
-        public bool Add(Category category)
+        public (int statusCode,string message) Add(Category category)
         {
 
 
-            if (category.Name == "") return false;
+            if (category.Name == "") return (400,"Kategori adı boş olamaz");
 
-            _categoryDal.Add(category);
-            return true;
+            if (_categoryDal.FindByName(category.Name)) return (400, "Bu isimde bir kategori mevcut.");
+          
+                _categoryDal.Add(category);
+            return (201,"Kategori Eklendi");
 
         }
 
-        public bool Delete(Category category)
+        public (int statusCode, string message) Delete(Category category)
         {
             var result = GetById(category.Id);
             if (result != null)
             {
                 _categoryDal.Delete(category);
-                return true;
+                return (204,"Kategori Silindi");
             }
-            return false;
+            return (404, "Bu id'ye ait bir kategori bulunamadı.");
 
         }
 
@@ -55,16 +57,17 @@ namespace Business.Concrete
 
         }
 
-        public bool Update(Category category)
+        public (int statusCode, string message) Update(Category category)
         {
+            if (category.Name == "") return (400, "Kategori adı boş olamaz");
             var result = GetById(category.Id);
             if (result != null)
             {
                 _categoryDal.Update(category);
-                return true;
+                return (200,"Güncelleme yapıldı.");
             }
 
-            return false;
+            return (404,"Bu id'ye ait bir kategori bulunamadı.");
         }
 
 
