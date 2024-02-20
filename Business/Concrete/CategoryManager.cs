@@ -22,15 +22,11 @@ namespace Business.Concrete
         public bool Add(Category category)
         {
 
-            
+
             if (category.Name == "") return false;
 
             _categoryDal.Add(category);
             return true;
-
-
-
-
 
         }
 
@@ -43,10 +39,6 @@ namespace Business.Concrete
                 return true;
             }
             return false;
-            
-
-
-
 
         }
 
@@ -66,8 +58,11 @@ namespace Business.Concrete
         public bool Update(Category category)
         {
             var result = GetById(category.Id);
-            if (result != null) { _categoryDal.Update(category);  return true;}
-           
+            if (result != null)
+            {
+                _categoryDal.Update(category);
+                return true;
+            }
 
             return false;
         }

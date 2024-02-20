@@ -14,12 +14,12 @@ CategoryManager _categoryManager = new CategoryManager(new CategoryDal());
 //TÜM KATEGORİLER LİSTELE
 Console.WriteLine("Tüm Kategori Listele:");
 CategoryGetAll();
-Console.WriteLine("--------------------------\n");
+Console.WriteLine("\n");
 
 //VERİLEN ID YE GÖRE KATEGORİ GETİR
 Console.WriteLine("Id'ye Göre Listele:(2)");
 CategoryGetById(2);
-Console.WriteLine("--------------------------\n");
+Console.WriteLine("\n");
 
 
 //YENİ KATEGORİ EKLEME
@@ -29,11 +29,11 @@ category3.Id = 3; category3.Name = "Veri Tabanı";
 Category category4 = new Category();
 category4.Id = 4; category4.Name = "";
 CategoryAdd(category3);
-
 CategoryGetAll();
+Console.WriteLine("Kategori adı olmadan ekleme yapılmak isteniyor:");
 CategoryAdd(category4); 
 CategoryGetAll();
-Console.WriteLine("--------------------------\n");
+Console.WriteLine("\n");
 
 
 //KATEGORİ GÜNCELLEME
@@ -41,7 +41,7 @@ Console.WriteLine("Kategori Güncelle:");
 category3.Name = "Network-Güvenlik";
 CategoryUpdate(category3);
 CategoryGetAll();
-Console.WriteLine("--------------------------\n");
+Console.WriteLine("\n");
 
 
 //KATEGORİ SİLME
@@ -54,10 +54,10 @@ Console.WriteLine("Olmayan bir id (5):");
 CategoryDelete(category5);
 CategoryGetAll();
 //DAHA ÖNCE OLUŞTURULAN KATEGORİ SİLİNİYOR
-Console.WriteLine("Var olan bir id (3):");
+Console.WriteLine("\n Var olan bir id (3):");
 CategoryDelete(category3);
 CategoryGetAll();
-Console.WriteLine("--------------------------\n");
+Console.WriteLine("\n");
 
 
 
