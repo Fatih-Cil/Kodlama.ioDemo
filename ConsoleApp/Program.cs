@@ -3,6 +3,7 @@ using Business.Abstract;
 using Business.Concrete;
 using DataAccess.Concrete;
 using Entities.Concrete;
+using Entities.DTO;
 
 Console.WriteLine("Kodlama.io Demo\n");
 
@@ -45,7 +46,7 @@ void CategoryList(){
 }
 
 
-//***EĞİTİM CRUD İŞLEMLERİ****
+//***EĞİTMEN CRUD İŞLEMLERİ****
 InstructorManager _instructorManager1 = new InstructorManager(new InstructorDal());
 
 Console.WriteLine("\n***Eğitmen Ekleniyor***");
@@ -82,5 +83,36 @@ void InstructorList()
 }
 
 
-CourseManager _courseManager = new CourseManager(new CourseDal());
 
+//*******KURS CRUD İŞLEMİ***************
+
+CourseManager _courseManager = new CourseManager(new CourseDal());
+var resultCourse= _courseManager.GetAll();
+InstructorManager _instructorManager3 = new InstructorManager(new InstructorDal());
+var resultInstructors = _instructorManager3.GetAll();
+CategoryManager _categoryManager3 = new CategoryManager(new CategoryDal());
+var resultCategories= _categoryManager3.GetAll();
+
+var resultDTO = from course in resultCourse
+                join instructor in resultInstructors
+                on course.InstructorId equals instructor.Id
+                join category in resultCategories
+                on course.CategoryId equals category.Id
+                select new CourseDetail
+                {
+                    InstructorName = instructor.Name,
+                     InstructorSurname = instructor.Surname,
+                    CategoryName = category.Name,
+                    Title = course.Title,
+                    Explanation = course.Explanation,
+                    Fee = course.Fee,
+
+                };
+
+Console.WriteLine("\n***Kurslar Listeleniyor*** (Detaylı)");
+Console.WriteLine("Ad Soyad        Kategori          Kurs Adı         İçerik");
+Console.WriteLine("---------------------------------------------------------------");
+foreach (var item in resultDTO)
+{
+    Console.WriteLine(item.InstructorName+" "+item.InstructorSurname + "       "+ item.CategoryName+"          "+item.Title +"        "+ item.Explanation);
+}

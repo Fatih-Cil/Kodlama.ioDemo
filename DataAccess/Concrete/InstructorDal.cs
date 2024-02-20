@@ -20,7 +20,7 @@ namespace DataAccess.Concrete
                 _instructors = new List<Instructor>()
             {
                     new Instructor() { Id=1, Name="Fatih",Surname="Çil",Career="Burası kendimi anlattığım bölüm",ImgUrl="imageurladresi"},
-                    new Instructor() { Id=2, Name="Alex De",Surname="Souza",Career="Ebedi Fenerbahçe kaptanı",ImgUrl="image_url_adresi"},
+                    new Instructor() { Id=2, Name="AlexDe",Surname="Souza",Career="Ebedi Fenerbahçe kaptanı",ImgUrl="image_url_adresi"},
                 };
             }
 

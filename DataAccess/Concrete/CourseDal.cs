@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace DataAccess.Concrete
             _courses = new List<Course>()
             {
                 new Course() { Id=1, CategoryId=1, InstructorId=1, Title="C#", Explanation="Tüm detayları ile C# öğrenmek için bu kurs tam size göre.", Fee=0, ImgUrl="Curse_image_url_buraya"},
-                new Course() { Id=2, CategoryId=2, InstructorId=2, Title="Suse Linux", Explanation="Kurulum, hata yakalama, disk işlemleri, performans kontrollerinde ve daha fazlası bu kursta sizi bekliyor.", Fee=0, ImgUrl="Curse_image_url_buraya"}
+                new Course() { Id=2, CategoryId=2, InstructorId=2, Title="Linux", Explanation="Kurulum, hata yakalama, disk işlemleri, performans kontrollerinde ve daha fazlası bu kursta sizi bekliyor.", Fee=0, ImgUrl="Curse_image_url_buraya"}
             };
         }
         public void Add(Course entity)
@@ -55,5 +56,7 @@ namespace DataAccess.Concrete
                 updateEntity.ImgUrl = entity.ImgUrl;
             }
         }
+
+       
     }
 }
